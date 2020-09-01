@@ -380,7 +380,7 @@ Pizza.prototype.bindInputs = function() {
 
     $(document).on('click', 'button.connect-portal', async function() {
         const accounts = await conflux.enable();
-        console.log('connected to portal');
+        console.log('connected to accounts: ', accounts.length);
     });
 
     $('#load-inventory').click(function() {
@@ -415,7 +415,7 @@ function showStatus(text) {
     status.className = "show";
     setTimeout(function() {
         status.className = status.className.replace("show", "");
-    }, 3000);
+    }, 5000);
 }
 
 // Checks if provided address has the basic requirements of an address
@@ -436,5 +436,21 @@ Pizza.prototype.onReady = function() {
 };
 
 $(document).ready(function() {
+    if (typeof window.conflux === 'undefined') {
+        showStatus("Please install conflux portal.");
+        return;
+    }
+
+    conflux.on('accountsChanged', function (accounts) {
+        if (accounts.length > 0) {
+            console.log('account lists:', accounts);
+            $('.connect-portal').addClass('hide');
+            $('#user-address').removeClass('hide').text(accounts[0]);
+        }
+    });
+
+    // TODO first time connect with portal, after success connect return back to dapp page, need to refresh the account info
+
+    showStatus("DApp loaded successfully.");
     pizza.onReady();
 });
