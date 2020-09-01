@@ -415,7 +415,7 @@ function showStatus(text) {
     status.className = "show";
     setTimeout(function() {
         status.className = status.className.replace("show", "");
-    }, 5000);
+    }, 3000);
 }
 
 // Checks if provided address has the basic requirements of an address
