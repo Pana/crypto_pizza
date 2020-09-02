@@ -71,7 +71,7 @@ Pizza.prototype.waitForReceipt = function(hash, cb) {
 };
 
 // Creates random Pizza from string (name)
-Pizza.prototype.createRandomPizza = function() {
+Pizza.prototype.createRandomPizza = async function() {
     var that = this;
 
     // Gets input values
@@ -91,12 +91,22 @@ Pizza.prototype.createRandomPizza = function() {
 
     $("#button-create").attr("disabled", true);
 
+    let pending = this.instance
+    .createRandomPizza(name)
+    .sendTransaction({
+        from: conflux.selectedAddress,
+        gas: 80000,
+        storageLimit: 300
+    });
+    // console.log(pending);
+    // let params = pending._params[0];
+    // let nonce = await this.web3.getNextNonce(params.from);
+    // let estimate = await this.web3.estimateGasAndCollateral(params);
+    // console.log('info: ', nonce, estimate);
+    // chainId, epochHeight
+
     // Calls the public `createRandomPizza` function from the smart contract
-    this.instance
-        .createRandomPizza(name)
-        .sendTransaction({
-            from: conflux.selectedAddress
-        }).then(
+    pending.then(
             function(txHash) {
                 // If success, wait for confirmation of transaction,
                 // then clear form values
