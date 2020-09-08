@@ -95,8 +95,8 @@ Pizza.prototype.createRandomPizza = async function() {
     .createRandomPizza(name)
     .sendTransaction({
         from: conflux.selectedAddress,
-        gas: 80000,
-        storageLimit: 300
+        // gas: 80000,
+        // storageLimit: 300
     });
     // console.log(pending);
     // let params = pending._params[0];
@@ -277,7 +277,7 @@ Pizza.prototype.giftPizza = function(pizzaId, cb) {
 
     // Calls the public `transferFrom` function from the smart contract
     this.instance.transferFrom(
-        address,
+        conflux.selectedAddress,
         sendTo,
         pizzaId).sendTransaction({from: conflux.selectedAddress}).then(
         function(txHash) {
