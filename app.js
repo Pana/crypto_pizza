@@ -2,8 +2,8 @@
 var Contracts = {};
 Contracts['CryptoPizza'] = {
     abi: contract_abi,
-    address: "0x8b0d9204db0adf41aa49e3fe43e20447555c28a3",
-    endpoint: "http://mainnet-jsonrpc.conflux-chain.org:12537"
+    address: "0x86c7a25ab86cf48e6b8fafc37a9dea81cde02a35",
+    endpoint: "https://test.confluxrpc.org"
 };
 
 function logErr(err) {
